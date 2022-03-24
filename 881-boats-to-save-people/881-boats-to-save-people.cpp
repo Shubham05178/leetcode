@@ -7,15 +7,12 @@ Boats to Save People
 class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {
-        multiset<int>s(people.begin(),people.end());
-        int c = 0, w1, diff;
-        while(s.size()!=0){
-            w1 = *s.begin();
-            s.erase(s.begin());
-            diff = limit - w1;
-            while(diff!=0 && s.find(diff)==s.end())
-                diff--;
-            if(diff != 0) s.erase(s.find(diff));
+       sort(people.begin(),people.end());
+        int c = 0, w1, diff, j = people.size() - 1, i = 0;
+        while(i<=j){
+            if(people[i]+people[j]<=limit)
+                i++;
+            j--;
             c++;
         }
         return c;
