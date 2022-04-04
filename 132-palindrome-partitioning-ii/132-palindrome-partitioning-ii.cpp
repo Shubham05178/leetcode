@@ -8,10 +8,10 @@ class Solution {
 public:
     int minCut(string s) {
         int n = s.size();
-        if(n==1) return 0;
-        vector<int>dp( n, INT_MAX);
+        vector<int>dp(n, INT_MAX);
         dp[0]=0;
-        vector<vector<int>>palindrome(n, vector<int>(n,9));
+        int palindrome[n][n];
+        memset(palindrome,-1,sizeof(palindrome));
         int j =0, i_, j_;
         while(j<n){
            i_=0, j_=j;
@@ -30,10 +30,7 @@ public:
             }
             j++;
         }
-        dp[1]=1;
-        if(s[0]==s[1])
-            dp[1]=0;
-        for(int i =2 ; i < n ;i++){
+        for(int i =1 ; i < n ;i++){
             if(palindrome[0][i] == 1) dp[i]=0;
             else{
                 for(int j =1; j <=i ; j++){
