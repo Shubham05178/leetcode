@@ -29,15 +29,15 @@ public:
         for(int i = 0; i < n+1; i++)
             Bob[i]=Alice[i]=i;
         int count = 0;
-        int noofdisAlice = n, noofdisBob = n;
+        int alicecount = n, bobcount = n;
         for(int i = 0 ; i < m; i++){
             if(edges[i][0]==1)
-                count += merge(edges[i][1], edges[i][2],Alice,noofdisAlice);
+                count += merge(edges[i][1], edges[i][2],Alice,alicecount);
             else if(edges[i][0]==2)
-                count += merge(edges[i][1], edges[i][2],Bob,noofdisBob);
+                count += merge(edges[i][1], edges[i][2],Bob,bobcount);
             else
-                count+= merge(edges[i][1], edges[i][2],Alice,noofdisAlice) |  merge(edges[i][1], edges[i][2],Bob,noofdisBob);
+                count+= merge(edges[i][1], edges[i][2],Alice,alicecount) |  merge(edges[i][1], edges[i][2],Bob,bobcount);
         }
-        return (noofdisAlice==1 && noofdisBob ==1) ? count : -1;
+        return (alicecount==1 && bobcount ==1) ? count : -1;
     }
 };
