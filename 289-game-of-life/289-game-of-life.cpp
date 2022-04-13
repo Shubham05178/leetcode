@@ -1,33 +1,34 @@
+/**
+* Leetcode Problem - https://leetcode.com/problems/game-of-life/
+* Author - Shubham Nagaria
+* Date - 12th April 2022
+Game of Life
+**/
 class Solution {
 public:
-    int R, C;
-    bool isLive(int status) {
-        return status == 1;
-    }
-    int getLiveNeighborsCnt(int row, int col, vector<vector<int>>& board) {
-        int cnt = 0;
-        cnt += row - 1 >= 0 && board[row - 1][col] ? 1 : 0;
-        cnt += row + 1 < R && board[row + 1][col] ? 1 : 0;
-        cnt += col - 1 >= 0 && board[row][col - 1] ? 1 : 0;
-        cnt += col + 1 < C && board[row][col + 1] ? 1 : 0;
-        cnt += row - 1 >= 0 && col - 1 >= 0 && board[row - 1][col - 1] ? 1 : 0;
-        cnt += row - 1 >= 0 && col + 1 < C && board[row - 1][col + 1] ? 1 : 0;
-        cnt += row + 1 < R && col - 1 >= 0 && board[row + 1][col - 1] ? 1 : 0;
-        cnt += row + 1 < R && col + 1 < C && board[row + 1][col + 1] ? 1 : 0;
-        
+    int dx[8] = {0,0,1,-1,1,-1,1,-1}, dy[8] = {1,-1,0,0,1,1,-1,-1};
+    int countLive(vector<vector<int>> &Board, int i, int j, int n , int m){    
+        int cnt = 0,x,y;
+        for(int l = 0;l < 8;l++){
+            x = i+dx[l];
+            y = j+dy[l];
+            cnt += x>=0 && x<n && y>=0 && y<m && Board[x][y];
+        }
         return cnt;
     }
     void gameOfLife(vector<vector<int>>& board) {
-        R = board.size(), C = board[0].size();
-		int liveNeighborsCnt;
-        vector<vector<int>> tempBoard = board;        
-        for(int r = 0; r < R; r++) {
-            for(int c = 0; c < C; c++) {
-                liveNeighborsCnt = getLiveNeighborsCnt(r, c, tempBoard);
-                if(isLive(board[r][c])) {
-                    if(liveNeighborsCnt < 2 || liveNeighborsCnt > 3) board[r][c] = 0;
-                } else {
-                    board[r][c] = liveNeighborsCnt == 3 ? 1 : 0;
+        int n = board.size(), m = board[0].size(), cnt;
+        vector<vector<int>>Board = board;
+        for(int i =0; i < n ; i++){
+            for(int j =0; j < m ; j++){
+                cnt = countLive(Board,i,j,n,m);
+                if(board[i][j]){
+                    if(cnt < 2 || cnt > 3)
+                        board[i][j] = 0;
+                }
+                else{
+                    if(cnt == 3)
+                        board[i][j] = 1;
                 }
             }
         }
