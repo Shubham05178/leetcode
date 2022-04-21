@@ -1,3 +1,9 @@
+/**
+* Leetcode Problem - https://leetcode.com/problems/remove-stones-to-minimize-the-total/
+* Author - Shubham Nagaria
+* Date - 22nd April 2022
+Remove Stones to Minimize the Total
+**/
 class Solution {
 public:
     int minStoneSum(vector<int>& piles, int k) {
