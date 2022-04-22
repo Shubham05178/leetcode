@@ -6,8 +6,11 @@ Sort Integers by The Power Value
 **/
 class Solution {
 public:
-    int noofsteps(int n){    
-        return n<2? 0: 1+(n%2 ? noofsteps(n*3+1): noofsteps(n/2));
+    unordered_map<int,int>mp;
+    int noofsteps(int n){ 
+        if(n<2)
+            return 0;
+        return mp[n]= 1 + (n%2 ? noofsteps(n*3+1): noofsteps(n/2));
     }
     int getKth(int lo, int hi, int k) {
         vector<vector<int>>res;
