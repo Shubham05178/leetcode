@@ -7,27 +7,16 @@ Maximum Sum Circular Subarray
 class Solution {
 public:
     int maxSubarraySumCircular(vector<int>& nums) {
-        int sumi =0;
-        int su=0;
-        int maxi = INT_MIN;
-        for(int i:nums){
-            su+=i;
-            if(maxi<su)
-                maxi= su;
-            if(su<0)
-                su=0;
+        int sum0 = 0, sum1 = 0,sum2 = 0, maxi = INT_MIN, mini = INT_MAX;
+        for(int i : nums){
+            sum0  +=i;
+            sum1 +=i;
+            sum2 +=i;
+            if(maxi < sum1) maxi= sum1;
+            if(sum1 < 0) sum1 = 0;
+            if(sum2 < mini) mini = sum2;
+            if(sum2 > 0) sum2 = 0;
         }
-        su=0;
-        int mini= INT_MAX;
-        for(int i :nums){
-            sumi +=i;
-            su+= i;
-            if(su<mini){
-                mini = su;
-            }
-            if(su>0)
-                su =0;
-        }
-        return (max(maxi,sumi-mini == 0 ? mini : sumi-mini));
+        return (max(maxi,sum0-mini == 0 ? mini : sum0-mini));
     }
 };
