@@ -10,6 +10,8 @@ public:
     int noofsteps(int n){ 
         if(n<2)
             return 0;
+        if(mp.find(n)!=mp.end())
+            return mp[n];
         return mp[n]= 1 + (n%2 ? noofsteps(n*3+1): noofsteps(n/2));
     }
     int getKth(int lo, int hi, int k) {
