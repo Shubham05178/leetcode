@@ -6,13 +6,8 @@ Sort Integers by The Power Value
 **/
 class Solution {
 public:
-    int noofsteps(int n){
-        if(n ==1)
-            return 0;
-        if(n%2)
-            return 1+noofsteps(n*3+1);
-    
-        return 1+ noofsteps(n/2);
+    int noofsteps(int n){    
+        return n<2? 0: 1+(n%2 ? noofsteps(n*3+1): noofsteps(n/2));
     }
     int getKth(int lo, int hi, int k) {
         vector<vector<int>>res;
