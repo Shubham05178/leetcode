@@ -7,10 +7,8 @@ K-Concatenation Maximum Sum
 class Solution {
 public:
     int kConcatenationMaxSum(vector<int>& arr, int k) {
-        int mod = 1e9+7;
-        long long int maxSum=0, currSum=0;
-        int m = min(k, 2);
-        long int totalsum = 0;
+        int mod = 1e9+7, m = min(k, 2);
+        long long int maxSum = 0, currSum = 0,totalsum = 0;
         while(m--){
             totalsum = 0;
             for(int i: arr){
