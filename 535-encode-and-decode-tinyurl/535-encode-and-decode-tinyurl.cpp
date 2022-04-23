@@ -6,6 +6,7 @@ Encode and Decode TinyURL
 **/
 class Solution {
 public:
+    string tinyurl = "http://tinyurl.com/";
     unordered_map<string,string>encodeurls;
     string getRandom(int length){
         string alphanumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -16,7 +17,7 @@ public:
     }
     // Encodes a URL to a shortened URL.
     string encode(string longUrl) {
-        string tiny = "http://tinyurl.com/"+getRandom(6);
+        string tiny = tinyurl+getRandom(6);
         if(encodeurls.find(tiny)!=encodeurls.end())
             return encode(longUrl);
         encodeurls[tiny]= longUrl;
