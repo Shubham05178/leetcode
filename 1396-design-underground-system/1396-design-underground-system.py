@@ -3,10 +3,7 @@ class UndergroundSystem:
         self.avgSumCountSrcDes={}
         self.checkin={}
     def checkIn(self, id: int, stationName: str, t: int) -> None:
-        self.checkin[id]=list()
-        self.checkin[id].append(stationName)
-        self.checkin[id].append(t)
-
+        self.checkin[id]=list([stationName,t])
     def checkOut(self, id: int, stationName: str, t: int) -> None:
         p = self.checkin[id]
         key = p[0]+"_"+stationName
