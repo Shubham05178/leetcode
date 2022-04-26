@@ -1,29 +1,41 @@
-class Solution:
-    def getparent(self,parent,x):
-        if x == parent[x]:
-            return x
-        parent[x] = self.getparent(parent,parent[x])
-        return parent[x]
-    
-    def union (self,x,y, parent,c):
-        p1= self.getparent(parent,x)
-        p2= self.getparent(parent,y)
-        if p1!= p2:
-            parent[p1]=p2
-            return c
-        return 0
-    def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        N = len(points)
-        parent =[ i for i in range(N)]
-        arr=[]
-        for i in range(N):
-            for j in range(i+1,N):
-                arr.append([abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]),i,j])
-        heapq.heapify(arr)
-        cost=0
-        while len(arr)>0:
-            front = heapq.heappop(arr)
-            cost += self.union(front[1],front[2],parent,front[0])
-        return cost
-        
-        
+/**
+* Leetcode Problem - https://leetcode.com/problems/min-cost-to-connect-all-points/
+* Author - Shubham Nagaria
+* Date - 26th April 2022
+Min Cost to Connect All Points
+**/
+class Solution {
+public:
+    int findParent(vector<int>& parent,int x){
+        if(parent[x]==x)
+            return x;
+        parent[x]= findParent(parent,parent[x]);
+        return parent[x];
+    }
+    int findUnion(int x, int y, vector<int>& parent, int c){
+        int p1 = findParent(parent,x);
+        int p2 = findParent(parent,y);
+        if(p1!=p2){
+            parent[p1]=p2;
+            return c;
+        }
+        return 0;
+    }
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int n = points.size();
+        vector<int>parent(n);
+        vector<vector<int>>arr;
+        for(int i = 0; i < n; i++){
+            parent[i] = i;
+            for(int j = i+1; j < n; j++){
+                arr.push_back({ abs(points[i][0]-points[j][0]) + abs(points[i][1]-points[j][1]),i,j});
+            }
+        }
+        sort(arr.begin(),arr.end());
+        int m = arr.size();
+        long int cost = 0;
+        for(int i = 0; i < m; i++)
+            cost+= findUnion(arr[i][1],arr[i][2],parent,arr[i][0]);
+        return cost;
+    }
+};
