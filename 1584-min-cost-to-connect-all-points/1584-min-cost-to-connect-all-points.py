@@ -19,10 +19,11 @@ class Solution:
         for i in range(N):
             for j in range(i+1,N):
                 arr.append([abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]),i,j])
-        heapq.heapify(arr)
-        cost=0
-        while len(arr)>0:
-            front = heapq.heappop(arr)
+        arr.sort()
+        i,cost=0,0
+        while len(arr) > i:
+            front = arr[i]
+            i+=1
             cost += self.union(front[1],front[2],parent,front[0])
         return cost
         
