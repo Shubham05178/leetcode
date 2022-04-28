@@ -14,10 +14,10 @@ public:
     pair<bool, int> depth(TreeNode* node) {
         if(node == NULL) 
             return {true, 0};
-        pair<bool,int> leftsubtree, rightsubtree;
-        leftsubtree = depth(node->left);
-        rightsubtree = depth(node->right);
-        return {abs(leftsubtree.second - rightsubtree.second) <= 1 && leftsubtree.first && rightsubtree.first, max(leftsubtree.second , rightsubtree.second) + 1};
+        pair<bool, int> leftsubtree, rightsubtree;
+        leftsubtree = depth(node -> left);
+        rightsubtree = depth(node -> right);
+        return {abs(leftsubtree.second - rightsubtree.second) <= 1 && leftsubtree.first && rightsubtree.first, max(leftsubtree.second, rightsubtree.second) + 1};
     }
     bool isBalanced(TreeNode* root) {
         if(root == NULL) 
