@@ -7,7 +7,7 @@ public:
             return findMedianSortedArrays(nums2, nums1);
         int low = 0 , high = size1, midX, midY;
         double maxleftX, minRightX, maxleftY, minRightY;
-        while(low <= high){
+        while(low <= high) {
             midX = low + ((high - low) >> 1);
             midY = ((size1 + size2 + 1) >> 1) - midX;
             maxleftX = (midX == 0) ? INT_MIN : nums1[midX - 1];
