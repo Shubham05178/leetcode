@@ -1,13 +1,13 @@
 class Solution {
 public:
-    bool isRegularExpression(int i, int j, int n, int m, string &s, string &p,vector<vector<int>> &dp){
+    bool isRegularExpression(int i, int j, int n, int m, string &s, string &p, vector<vector<int>> &dp){
         if(i >= n && j >= m)
             return true;
         if(j >= m)
             return false;
         if(i >= n){
             while(j < m){
-                if(j+1 >= m || p[j + 1] != '*')
+                if(j + 1 >= m || p[j + 1] != '*')
                     return false;
                 j += 2;
             }
@@ -20,7 +20,7 @@ public:
          dp[i][j] = isRegularExpression(i,j + 2, n, m, s, p, dp) || (match && isRegularExpression(i + 1, j, n, m, s, p, dp));
         }
         else{
-            dp[i][j] = match && isRegularExpression(i+1,j+1,n,m,s,p,dp);    
+            dp[i][j] = match && isRegularExpression(i + 1,j + 1, n, m, s, p, dp);    
         }
          return dp[i][j];   
     }
