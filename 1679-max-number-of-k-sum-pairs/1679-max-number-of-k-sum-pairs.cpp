@@ -1,15 +1,15 @@
 class Solution {
 public:
     int maxOperations(vector<int>& nums, int k) {
-      multiset<int>s;
+      unordered_map<int,int>freq;
       int count = 0;
-      for(int i : nums){
-        if(s.find(k - i) != s.end()){
-          s.erase(s.find(k - i));
+      for(int &i : nums) {
+        if(freq[ k - i]> 0) {
+          freq[k - i]--;
           count++;
         }
         else 
-          s.insert(i);
+          freq[i]++;
       }
     return count;
     }
