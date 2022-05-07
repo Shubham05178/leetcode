@@ -1,23 +1,16 @@
 class Solution {
 public:
-    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-        vector<int>mangerToEmployees[n + 1];
-        for(int idx = 0; idx < n; idx++) {
-          if(manager[idx] != -1)
-              mangerToEmployees[manager[idx]].push_back(idx);
-        }
-      queue<int>informingEmployees;
-      informingEmployees.push(headID);
-      int maxTime = 0;
-      while(informingEmployees.size() > 0){
-        int manager = informingEmployees.front();
-        informingEmployees.pop();
-        for(int emp : mangerToEmployees[manager]) {
-            informTime[emp] += informTime[manager];
-            informingEmployees.push(emp);
-            maxTime = max(maxTime, informTime[emp]);
-        }
+    int dfs(int idx, vector<int>& manager, vector<int>&informTime) {
+      if(manager[idx] != -1){
+        informTime[idx] += dfs(manager[idx], manager, informTime);
+        manager[idx]= -1;
       }
+      return informTime[idx];
+    }
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+      int maxTime = 0;
+      for(int idx = 0; idx < n; idx++)
+        maxTime = max(maxTime, dfs(idx, manager,informTime));
       return maxTime;
     }
 };
