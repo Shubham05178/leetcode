@@ -6,17 +6,16 @@ public:
           if(manager[idx] != -1)
               mangerToEmployees[manager[idx]].push_back(idx);
         }
-      vector<int>time(n);
       queue<int>informingEmployees;
       informingEmployees.push(headID);
       int maxTime = 0;
       while(informingEmployees.size() > 0){
         int manager = informingEmployees.front();
         informingEmployees.pop();
-        for(int emp : mangerToEmployees[manager]){
-            time[emp] = (time[manager] + informTime[manager]);
+        for(int emp : mangerToEmployees[manager]) {
+            informTime[emp] += informTime[manager];
             informingEmployees.push(emp);
-            maxTime = max(maxTime, time[emp]);
+            maxTime = max(maxTime, informTime[emp]);
         }
       }
       return maxTime;
