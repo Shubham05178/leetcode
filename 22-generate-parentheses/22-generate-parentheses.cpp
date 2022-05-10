@@ -1,21 +1,24 @@
 class Solution {
 public:
-    vector<string> ans;
-    void solver(string res, int open, int closed, int size,int tempsize){
-        if(tempsize == (size<<1) ){
-        if(open == size && closed == size)
-            ans.push_back(res);    
-        return;
-        }
-        if(open >= closed){
-            solver(res+"(", open+1, closed,size,tempsize+1 );
-        }
-        if(open>closed){
-            solver(res+")", open, closed + 1,size,tempsize+1);
-        }
-    }
     vector<string> generateParenthesis(int n) {
-        solver("",0,0,n,0);
+        stack<pair<string,pair<int,int>>>generator;
+        vector<string>ans;
+        generator.push({"(",{1,0}});
+        while(generator.size()) {
+            auto toppair = generator.top();
+            generator.pop();
+            int l = toppair.second.first;
+            int r = toppair.second.second;
+            string topstr = toppair.first;
+            if(l - r < 0 || l > n || r > n )
+                continue;
+            if(l == n && r == n){
+                ans.push_back(topstr);
+                continue;
+            }
+            generator.push({topstr+")",{l,r+1}});
+            generator.push({topstr+"(", {l+1,r}});
+        }
         return ans;
     }
 };
