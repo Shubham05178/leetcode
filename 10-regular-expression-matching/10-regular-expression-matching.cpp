@@ -1,33 +1,35 @@
 class Solution {
 public:
-    bool isRegularExpression(int i, int j, int n, int m, string &s, string &p, vector<vector<int>> &dp){
-        if(i >= n && j >= m)
+    bool solver(string &s , string& p, int ids, int idp, int size1, int size2, vector<vector<int>> &dp) {
+        if(ids == size1 && idp == size2){
             return true;
-        if(j >= m)
-            return false;
-        if(i >= n){
-            while(j < m){
-                if(j + 1 >= m || p[j + 1] != '*')
+        }
+        if(ids==size1 && idp<size2){
+            while(idp < size2){
+                if(idp+1 >= size2 || p[idp+1] != '*')
                     return false;
-                j += 2;
+                idp += 2;
             }
             return true;
         }
-        if(dp[i][j] != -1)
-            return dp[i][j];
-        bool match = (s[i] == p[j] || p[j] == '.');
-        if(j + 1 < m && p[j + 1] == '*') {
-         dp[i][j] = isRegularExpression(i,j + 2, n, m, s, p, dp) || (match && isRegularExpression(i + 1, j, n, m, s, p, dp));
+        if(idp >= size2)
+            return false;
+        if(dp[ids][idp] != -1)
+            return dp[ids][idp];
+        bool comp = (p[idp] == s[ids] || p[idp]=='.');
+        if(idp + 1 < size2 && p[idp+1] =='*'){
+        dp[ids][idp] = (solver (s, p, ids, idp + 2, size1, size2,dp) || (comp && solver (s, p, ids + 1, idp , size1, size2,dp)));
         }
         else{
-            dp[i][j] = match && isRegularExpression(i + 1,j + 1, n, m, s, p, dp);    
+          dp[ids][idp] = (comp && solver(s,p,ids +1,idp+1, size1,size2,dp));
         }
-         return dp[i][j];   
+        return dp[ids][idp];
+        
     }
     bool isMatch(string s, string p) {
-        int n =  s.size();
-        int m = p.size();
-        vector<vector<int>>dp(n,vector<int>(m,-1));
-        return isRegularExpression(0, 0, n, m, s, p, dp);
+        int size1 = s.size();
+        int size2 = p.size();
+        vector<vector<int>>dp(size1,vector<int>(size2,-1));
+        return solver(s, p, 0, 0, size1, size2, dp);
     }
 };
