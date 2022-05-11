@@ -29,9 +29,6 @@ public:
         if(list2) dummy->next = list2;
         return head->next;
     }
-    void merge(int i , int j ){
-        cout<<i<<" "<<j<<endl;
-    }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         int size = lists.size();
         if(size == 0) return NULL;
