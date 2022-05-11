@@ -1,39 +1,35 @@
-/**
-* Leetcode Problem - https://leetcode.com/problems/wildcard-matching/
-* Author - Shubham Nagaria
-* Date - 12th April 2022
-Wildcard Matching
-**/
 class Solution {
 public:
-    bool isMatch(string s, string p) {
-        int n = s.size();
-        int m = p.size();
-        bool dp[n+1][m+1];
-        dp[0][0] = true;
-        for(int i =0; i <= n;++i){
-            for(int j =0 ; j<=m ; ++j){
-                if(i == 0 && j == 0) continue;
-                else if(i == 0){
-                    if(p[j-1]=='*') dp[i][j] = dp[i][j-1];
-                    else
-                        dp[i][j] = false;
-                    continue;
-                }
-               else if(j == 0){
-                    dp[i][j] = false;
-                    continue;
+    bool solver(int idx1, int  idx2, string &s, string &p, vector<vector<int>>& dp){
+        if(idx1 == -1 && idx2 == -1)
+            return true;
+        if(idx1 == -1){
+            while(idx2 >=0){
+                if(p[idx2] != '*')
+                    return false;
+                idx2--;
             }
-            else{
-                if(s[i-1] == p[j-1] || p[j-1] == '?')
-                    dp[i][j] = dp[i-1][j-1];
-                else if ( p[j-1]=='*')
-                    dp[i][j] = dp[i-1][j] || dp[i][j-1];
-                else
-                    dp[i][j] = false;
-                }
-            }
+            return true;
         }
-        return dp[n][m];
+        if(idx2 == -1)
+            return false;
+        if(dp[idx1][idx2] != -1)
+            return dp[idx1][idx2];
+        if(p[idx2] == '?' || p[idx2] == s[idx1]) {
+            dp[idx1][idx2] = solver(idx1 -1, idx2 - 1 ,s, p, dp);
+        }
+        else if(p[idx2]=='*'){
+            dp[idx1][idx2] = solver(idx1 - 1, idx2, s, p, dp) || solver(idx1, idx2 - 1, s, p, dp);
+        }
+        else
+            dp[idx1][idx2] = false;
+        return dp[idx1][idx2];
+        
+    }
+    bool isMatch(string s, string p) {
+        int size1 = s.size();
+        int size2 = p.size();
+        vector<vector<int>>dp(size1, vector<int>(size2, -1));
+        return solver(size1 - 1, size2 - 1, s, p, dp);
     }
 };
