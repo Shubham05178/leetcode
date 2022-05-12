@@ -1,21 +1,16 @@
 class Solution {
 public:
+    bool static comp(vector<int>first, vector<int>second){
+        if(first[0] == second[0])
+            return first[1]<second[1];
+        return first[0]>second[0];
+    }
     vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
-        sort(people.begin(), people.end());
+        sort(people.begin(), people.end(),comp);
         int size = people.size();
-        vector<vector<int>>ans(size, vector<int>(2,-1));
-        for(int idx = 0; idx < size; idx++){
-            int count = people[idx][1];
-            int idy = 0;
-            while(idy < size){
-                if(count == 0 && ans[idy][0] == -1)
-                    break;
-                else if( ans[idy][0] == -1 || ans[idy][0] >= people[idx][0])
-                    count--;
-                idy++;
-            }
-            ans[idy]= people[idx];
-        }
+        vector<vector<int>>ans;
+        for(auto peop : people) 
+            ans.insert(ans.begin() + peop[1], peop);
         return ans;
     }
 };
