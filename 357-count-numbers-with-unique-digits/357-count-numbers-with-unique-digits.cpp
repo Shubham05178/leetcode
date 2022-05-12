@@ -5,7 +5,7 @@ public:
         long int sum = 10, pvmul = 9,currmul = 9;
         int mul = 9;
         while(currmul && --n ){
-            pvmul = pvmul * currmul--;
+            pvmul *=  currmul--;
             sum += pvmul;
         }
         return sum;
