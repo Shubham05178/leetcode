@@ -15,18 +15,3 @@ public:
         return {};
     }
 };
-/**
-Input: aliceSizes = [1,1], bobSizes = [2,2]
-
-
-sumofcandiesalice =0 , sumoofcandiesofbob =0
-2                               4
-
-
-[1,
-2-1 =1 
-
-
-j[2,2]
- 4-2+1 == 2-1+2
-**/
