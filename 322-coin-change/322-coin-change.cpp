@@ -1,9 +1,3 @@
-/**
-* Leetcode Problem - https://leetcode.com/problems/coin-change/
-* Author - Shubham Nagaria
-* Date - 26th March 2022
-Coin Change
-**/
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
