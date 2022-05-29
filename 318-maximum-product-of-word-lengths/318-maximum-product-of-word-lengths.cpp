@@ -6,7 +6,7 @@ public:
         for(string s : words) {
             bithash = 0;
             for(char ch : s) 
-               bithash |= (1<< (ch -'a'));
+               bithash |= (1 << (ch -'a'));
             wordsize = s.size();
             bithashAndSize.push_back({bithash, wordsize});
         }
