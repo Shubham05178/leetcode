@@ -1,20 +1,33 @@
 class Solution {
 public:
-    void recursion(vector<int> num, int i, int j, vector<vector<int> > &res) {
-        if (i == j-1) {
-            res.push_back(num);
-            return;
+    bool nextPermutation(vector<int>& nums) {
+        int size = nums.size();
+        int idx = size - 2;
+        while(idx >= 0 && nums[idx + 1] <= nums[idx] )
+            idx--;
+        if(idx >= 0){
+            int idy = size - 1, maxi = INT_MAX;
+            int mini = idy;
+            while(idy > idx){
+                if( nums[idy] - nums[idx] > 0 && nums[idy] - nums[idx] < maxi){
+                    maxi = nums[idy] - nums[idx];
+                    mini = idy;
+                }
+                idy--;
+            }
+            swap(nums[idx],nums[mini]);
+            sort(nums.begin()+idx+1 , nums.end());
         }
-        for (int k = i; k < j; k++) {
-            if (i != k && num[i] == num[k]) continue;
-            swap(num[i], num[k]);
-            recursion(num, i+1, j, res);
-        }
+        else
+            return false;
+        return true;
     }
-    vector<vector<int> > permuteUnique(vector<int> &num) {
-        sort(num.begin(), num.end());
-        vector<vector<int> >res;
-        recursion(num, 0, num.size(), res);
-        return res;
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+       vector<vector<int>>ans;
+        do {
+            ans.push_back(nums);
+        }while(nextPermutation(nums));
+        return ans;
     }
 };
