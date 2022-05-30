@@ -16,7 +16,7 @@ public:
                 idy--;
             }
             swap(nums[idx],nums[mini]);
-            sort(nums.begin()+idx+1 , nums.end());
+            reverse(nums.begin()+idx+1 , nums.end());
         }
         else
             return false;
