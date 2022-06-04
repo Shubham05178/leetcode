@@ -1,9 +1,3 @@
-/**
-* Leetcode Problem - https://leetcode.com/problems/n-queens/
-* Author - Shubham Nagaria
-* Date - 11th March 2022
-N-Queens
-**/
 class Solution {
 public:
     void NQueens(int index, int n, vector<vector<string>> &res, vector<string> &mat ,vector<int> &col, vector<int> &ld , vector<int> &rd){
