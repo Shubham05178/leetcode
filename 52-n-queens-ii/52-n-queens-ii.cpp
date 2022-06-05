@@ -1,9 +1,4 @@
-/**
-* Leetcode Problem - https://leetcode.com/problems/n-queens-ii/
-* Author - Shubham Nagaria
-* Date - 12th March 2022
-N-Queens II
-**/
+
 class Solution {
 public:
     void CountToatlNQueens(int i, int n, int &count, vector<vector<int>> &mat, vector<int> &col, vector<int> &ld, vector<int> &rd){
