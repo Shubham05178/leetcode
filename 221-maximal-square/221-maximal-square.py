@@ -1,15 +1,12 @@
 class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
-        n, m = len(matrix), len(matrix[0])
-        dp = [[0 for _ in range(m)] for _ in range(n)]
+        rows, cols = len(matrix), len(matrix[0])
+        dp = [[1 if matrix[row][col] == "1" else 0for col in range(cols)] for row in range(rows)]
         ans = 0
-        for idx in range(n):
-            for idy in range(m):
-                if matrix[idx][idy]=="1":
-                    dp[idx][idy] = 1
-                if idx != 0 and idy != 0 and dp[idx][idy] == 1:
-                    dp[idx][idy] += min(dp[idx-1][idy-1], dp[idx-1][idy], dp[idx][idy-1])
-                ans = max(ans, dp[idx][idy])
-                        
-        return ans*ans
+        for row in range(rows):
+            for col in range(cols):
+                if row != 0 and col != 0 and dp[row][col] == 1:
+                    dp[row][col] += min(dp[row - 1][col - 1], dp[row - 1][col], dp[row][col - 1])
+                ans = max(ans, dp[row][col])
+        return ans * ans
         
